@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {Editor} from "@monaco-editor/react";
 import useSWR from "swr";
