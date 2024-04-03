@@ -25,7 +25,7 @@ COPY . .
 ENV NODE_ENV production
 
 ARG PUBLIC_URL
-ENV NEXT_PUBLIC_API_URL http://$PUBLIC_URL/api
+ENV NEXT_PUBLIC_API_URL $PUBLIC_URL/api
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
