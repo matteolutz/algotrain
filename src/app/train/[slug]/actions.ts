@@ -44,7 +44,7 @@ ${formData.get('code')}`;
     await fs.promises.writeFile(path.join(rootPath, `Main.java`), code);
 
     try {
-        const compilation = await exec(`javac Main.java`, { cwd: rootPath });
+        const compilation = await exec(`javac Main.java`, { cwd: rootPath, timeout: 10000 });
     } catch(e) {
         await fs.promises.rm(rootPath, { recursive: true, force: true });
         return {
@@ -55,7 +55,7 @@ ${formData.get('code')}`;
 
     let execution;
     try {
-        execution = await exec(`java Main`, { cwd: rootPath });
+        execution = await exec(`java Main`, { cwd: rootPath, timeout: 10000 });
     } catch (e) {
         await fs.promises.rm(rootPath, { recursive: true, force: true });
         return {
