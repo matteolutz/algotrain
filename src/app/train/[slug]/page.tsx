@@ -6,9 +6,17 @@ import AlgoTrainExercise from "@/models/exercise";
 import getExerciseBoilerplate from "@/utils/boilerplate";
 import {runCode, RunCodeActionState} from "@/app/train/[slug]/actions";
 import {useState} from "react";
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 import cn from "@/utils/cn";
+import {Puff} from "react-loader-spinner";
 
+function RunCodeButton() {
+    const { pending } = useFormStatus();
+
+    return <button type="submit" disabled={pending} className="flex items-center justify-center bg-green-500 px-4 py-2 rounded disabled:bg-black min-w-[110px] min-h-[40px]">
+        {pending ? <Puff width="25" height="25" /> : 'Ausführen'}
+    </button>;
+}
 
 function TrainPageComponent({ exercise }: { exercise: AlgoTrainExercise }) {
     const runExerciseCode = runCode.bind(null, exercise);
@@ -38,7 +46,7 @@ function TrainPageComponent({ exercise }: { exercise: AlgoTrainExercise }) {
             />
             <input type="hidden" name="code" value={code} />
             <div className={cn("w-full h-[80px] shrink-0 flex p-4 overflow-hidden items-center", state.success === 'error' ? 'bg-red-900' : 'bg-emerald-900')}>
-                <button type="submit" className="bg-green-500 px-4 py-2 rounded">Ausführen</button>
+                <RunCodeButton />
             </div>
         </form>
     </div>;

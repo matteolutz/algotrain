@@ -13,6 +13,8 @@ export type RunCodeActionState = {
 export async function runCode(exercise: AlgoTrainExercise, prevState: any, formData: FormData) {
     const code = `import java.util.*;
     
+${exercise.prequelCode ?? ''}
+    
 public class Main {
     
     ${exercise.testCases.map((testCase, index) => `private static void testCase${index + 1}() throws Exception {
@@ -44,7 +46,7 @@ ${formData.get('code')}`;
     try {
         const compilation = await exec(`javac Main.java`, { cwd: rootPath });
     } catch(e) {
-        await fs.promises.rm(rootPath, { recursive: true, force: true });
+        // await fs.promises.rm(rootPath, { recursive: true, force: true });
         return {
             success: 'error',
             output: 'Fehler beim Kompilieren: ' + e
@@ -55,14 +57,14 @@ ${formData.get('code')}`;
     try {
         execution = await exec(`java Main`, { cwd: rootPath });
     } catch (e) {
-        await fs.promises.rm(rootPath, { recursive: true, force: true });
+        // await fs.promises.rm(rootPath, { recursive: true, force: true });
         return {
             success: 'error',
             output: 'Fehler beim Ausführen: ' + e
         } satisfies RunCodeActionState;
     }
 
-    await fs.promises.rm(rootPath, { recursive: true, force: true });
+    // await fs.promises.rm(rootPath, { recursive: true, force: true });
 
     return {
         success: 'success',

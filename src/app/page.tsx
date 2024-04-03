@@ -13,6 +13,8 @@ export default function Home() {
 
   if (!exercises) return <div>Loading...</div>;
 
+    console.log(exercises);
+
   return (
       <div className="size-full p-5">
           <div className="w-full h-full">

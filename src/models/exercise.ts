@@ -10,7 +10,8 @@ type AlgoTrainExercise = {
     testCases: Array<{
         input: Array<string>,
         assertions: Array<string>,
-    }>
+    }>;
+    prequelCode?: string;
 };
 
 export default AlgoTrainExercise;
